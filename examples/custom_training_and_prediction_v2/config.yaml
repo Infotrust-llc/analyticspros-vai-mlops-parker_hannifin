@@ -1,0 +1,30 @@
+gcp_project_id: gcp-project-id  # GCP Project Id where the pipelines and models will live
+gcp_region: us-central1
+bq_dataset_id: vaimlops_custom_model  # BQ dataset name where all models and tables will live
+bq_stored_procedure_path: sp_create_dataset.sqlx  # Path to the create_dataset procedure
+bq_sp_params:  # Custom create_dataset parameters
+    lookback: 14
+    lookahead: 7
+
+model:
+    type: CUSTOM
+    custom_training_params:
+        container_uri: us-central1-docker.pkg.dev/as-dev-anze/vaimlops-custom-model-custom/vai-training-container:prod
+        model_serving_container_image_uri: us-central1-docker.pkg.dev/as-dev-anze/vaimlops-custom-model-custom/vai-serving-container:prod
+        machine_type: n1-standard-4
+
+training:
+    cron: TZ=America/Los_Angeles 0 6 * * MON
+    data_date_start_days_ago: 1500  # How far back from today should we go to grab training data
+    keep_n_best_models: 5  # How many models to keep saved (best model is always picked between retrains)
+
+prediction:
+    cron: TZ=America/Los_Angeles 0 11 * * *
+    data_date_start_days_ago: 3  # How far back from today should we go to grab data for prediction
+
+# activation:
+#     ga4mp:  # GA4 Measurement Protocol based activation
+#         query_path: sp_ga4mp_activation.sqlx  # Path to the activation query
+#         ga4_measurement_id: G-X026J06Q12
+#         ga4_api_secret: ZdUboRUkQFicOlE6DVPzT3
+#         ga4_mp_debug: True  # Use the prod GA4 MP endpoint or debug

@@ -1,0 +1,18 @@
+gcp_project_id: gcp-project-id  # GCP Project Id where the pipelines and models will live
+gcp_region: us-central1
+bq_dataset_id: bq-dataset-id  # Should be the same as the display name of the clustering model
+bq_stored_procedure_path: sp_create_dataset.sqlx  # Path to the create_dataset procedure
+
+model:
+    type: CUSTOM
+
+prediction:
+    cron: TZ=America/Los_Angeles 0 11 * * *
+    data_date_start_days_ago: 3  # How far back from today should we go to grab data for prediction
+
+# activation:
+#     ga4mp:  # GA4 Measurement Protocol based activation
+#         query_path: sp_ga4mp_activation.sqlx  # Path to the activation query
+#         ga4_measurement_id: G-X026J06Q12
+#         ga4_api_secret: ZdUboRUkQFicOlE6DVPzT3
+#         ga4_mp_debug: True  # Use the prod GA4 MP endpoint or debug

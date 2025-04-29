@@ -1,0 +1,17 @@
+google-auth==2.29.0
+google-cloud-aiplatform==1.48.0
+google-cloud-bigquery==3.21.0
+google-cloud-pipeline-components==2.13.1
+google-cloud-secret-manager==2.20.0
+google-analytics-admin==0.22.7
+apache-beam[gcp]==2.55.1
+
+Jinja2==3.*
+schema==0.7.5
+pyyaml==6.0.1
+sqlglot==23.12.1
+
+pytest==8.*
+pytest-mock==3.14.0
+
+kfp==2.7.0
